@@ -35,7 +35,10 @@ const jsx = (
                   async={true}
                   key="userFunc"
                   arrow
-                  params={[<Identifier key="max">max</Identifier>]}
+                  params={[
+                    <Identifier key="max">max</Identifier>,
+                    <Identifier key="items">items</Identifier>,
+                  ]}
                 >
                   <Return key="result">
                     <CallExpression
@@ -51,6 +54,7 @@ const jsx = (
                             <Code>{`item.id < max`}</Code>
                           </Return>
                         </Function>,
+                        <Identifier key="items">items</Identifier>,
                       ]}
                     />
                   </Return>
