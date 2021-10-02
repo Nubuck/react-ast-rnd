@@ -1,0 +1,15 @@
+{
+  "name": "backpack-react-ast",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "backpack dev"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@babel/preset-env": "^7.15.6",
+    "@babel/preset-react": "^7.14.5",
+    "backpack-core": "^0.8.4",
+    "react": "^17.0.2",
+    "react-ast": "^0.3.1"
+  }
+}
