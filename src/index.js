@@ -1,12 +1,15 @@
 import React from 'react'
 import {
-  ClassDeclaration,
-  FunctionDeclaration,
+  Import,
+  Export,
+  Var,
+  VarKind,
+  CallExpression,
+  Function,
   Identifier,
-  ReturnStatement,
-  VariableDeclaration,
-  VariableDeclarationKind,
-  VariableDeclarator,
+  Return,
+  Code,
+  Expression,
   render,
   renderAst,
 } from 'react-ast'
@@ -15,25 +18,59 @@ const logger = console
 
 const jsx = (
   <React.Fragment>
-    <ClassDeclaration id="Hello" />
-    <FunctionDeclaration id="add" params={['a', 'b']}>
-      <VariableDeclaration kind={VariableDeclarationKind.Const}>
-        <VariableDeclarator id="result">{0}</VariableDeclarator>
-      </VariableDeclaration>
-      <ReturnStatement>
-        <Identifier>result</Identifier>
-      </ReturnStatement>
-    </FunctionDeclaration>
+    <Import default="z" from="@z1/preset-task" />
+    <Export>
+      <Var kind={VarKind.Const} name="filterItems">
+        <CallExpression
+          key="z"
+          name="z.fn"
+          arguments={[
+            <Function
+              key="zFunc"
+              arrow
+              params={[<Identifier key="t">t</Identifier>]}
+            >
+              <Return key="yield">
+                <Function
+                  async={true}
+                  key="userFunc"
+                  arrow
+                  params={[<Identifier key="max">max</Identifier>]}
+                >
+                  <Return key="result">
+                    <CallExpression
+                      key="invoker"
+                      name="t.filter"
+                      arguments={[
+                        <Function
+                          key="filter"
+                          arrow
+                          params={[<Identifier key="item">item</Identifier>]}
+                        >
+                          <Return key="check">
+                            <Code>{`item.id < max`}</Code>
+                          </Return>
+                        </Function>,
+                      ]}
+                    />
+                  </Return>
+                </Function>
+              </Return>
+            </Function>,
+          ]}
+        />
+      </Var>
+    </Export>
   </React.Fragment>
 )
 
 logger.log('======== RECONCILER LIFECYCLE ========')
 
 const renderedOutput = render(jsx)
-const renderedAst = renderAst(jsx)
+// const renderedAst = renderAst(jsx)
 
-logger.log('\n\n======== RENDERED AST ========')
-logger.log(JSON.stringify(renderedAst, null, 2))
+// logger.log('\n\n======== RENDERED AST ========')
+// logger.log(JSON.stringify(renderedAst, null, 2))
 logger.log('\n\n======== RENDERED OUTPUT ========')
 logger.log(renderedOutput)
 logger.log('\n--------------')
